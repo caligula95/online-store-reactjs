@@ -1,10 +1,25 @@
 import * as React from "react";
 import ProductsPage from "./ProductsPage";
+import Cart from "./Cart";
 
 class MainPage extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {openCart: false}
+    }
+
+    openCart = () => {
+        this.setState({openCart: true})
+    }
+
+    closeCart = () =>{
+        this.setState({openCart: false})
+    }
+
     render() {
         return <div className="row">
+            {this.state.openCart ? <Cart closeModal={this.closeCart}/> : ""}
             <div className="large-12 columns">
                 <div className="logo">
                     <h1>Online store</h1>
@@ -33,7 +48,8 @@ class MainPage extends React.Component {
                                     </li>
                                     <li className="divider"></li>
                                     <li className="has-dropdown">
-                                        <a data-toggle="modal" data-target="#cart" href="#">Cart </a>
+                                        <a data-toggle="modal" data-target="#cart" href="#"
+                                           onClick={() => this.openCart()}>Cart </a>
                                     </li>
                                 </ul>
                             </section>

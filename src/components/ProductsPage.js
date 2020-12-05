@@ -29,7 +29,7 @@ class ProductsPage extends React.Component {
 
                 <div className="row">
                     {this.state.products.map(product => (
-                        <Product title={product.title} price={product.price} key={product.id}/>
+                        <Product product={product} key={product.id}/>
                     ))}
                 </div>
             </div>
