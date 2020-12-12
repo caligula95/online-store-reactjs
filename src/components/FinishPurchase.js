@@ -8,7 +8,10 @@ class FinishPurchase extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {show: true, userName: '', userSurname: '', email: '', phone: '', address: '', comment: ''}
+        this.state = {
+            show: true, userName: '', userSurname: '',
+            email: '', phone: '', address: '', comment: '', password: '', createAccount: false
+        }
     }
 
     handleClose = () => {
@@ -24,12 +27,13 @@ class FinishPurchase extends React.Component {
             email: this.state.email,
             phone: this.state.phone,
             address: this.state.address,
-            comment: this.state.comment
-        }).then(res=>{
+            comment: this.state.comment,
+            password: this.state.password
+        }).then(res => {
             alert("Thanks for your purchase. Our manager will contact you soon.")
             localStorage.clear();
             window.location.reload();
-        }).catch(error=>{
+        }).catch(error => {
             alert("Something went wrong! Please try again or contact us")
         })
     };
@@ -58,6 +62,14 @@ class FinishPurchase extends React.Component {
         this.setState({comment: e.target.value})
     }
 
+    handlePassword = (e) => {
+        this.setState({password: e.target.value})
+    }
+
+    handleCheckBox = (e) => {
+        this.setState({createAccount: e.target.checked})
+    }
+
     render() {
         return (
             <Modal show={this.state.show} onHide={this.handleClose} animation={false}>
@@ -71,6 +83,10 @@ class FinishPurchase extends React.Component {
                     <input onChange={this.handleUserPhone} placeholder="Enter your phone"/>
                     <input onChange={this.handleUserAddress} placeholder="Enter your address"/>
                     <textarea onChange={this.handleUserComment} placeholder="Enter your comment"/>
+                    <input onChange={this.handleCheckBox} type="checkbox" id="create_account_id" name="create_account"/>
+                    <label htmlFor="create_account_id">Create a personal account</label><br/>
+                    {this.state.createAccount ?
+                        <input type="password" onChange={this.handlePassword} placeholder="Please enter a new password"/> : ""}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>
@@ -85,4 +101,5 @@ class FinishPurchase extends React.Component {
     }
 
 }
+
 export default FinishPurchase;
